@@ -8,6 +8,7 @@ use crate::block::block_header::HeaderBlock;
 use crate::block::block_image::ImageBlock;
 use crate::block::block_input::InputBlock;
 use crate::block::block_object::{OptionBlockObject, TextBlockObject};
+use crate::block::block_richtext::RichTextBlock;
 use crate::block::block_section::SectionBlock;
 use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
@@ -33,6 +34,8 @@ pub enum Block {
     InputBlock(InputBlock),
     #[serde(rename = "section")]
     SectionBlock(SectionBlock),
+    #[serde(rename = "rich_text")]
+    RichTextBlock(RichTextBlock),
     #[serde(skip)]
     None,
 }
@@ -48,6 +51,7 @@ impl Block {
             Block::ImageBlock(ImageBlock { .. }) => BlockType::Image,
             Block::InputBlock(InputBlock { .. }) => BlockType::Input,
             Block::SectionBlock(SectionBlock { .. }) => BlockType::Section,
+            Block::RichTextBlock(RichTextBlock { .. }) => BlockType::RichText,
             Block::None => BlockType::None,
         }
     }
@@ -70,6 +74,7 @@ pub enum BlockType {
     Image,
     Input,
     Section,
+    RichText,
     #[serde(skip)]
     None,
 }

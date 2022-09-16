@@ -30,6 +30,8 @@ pub enum BlockElement {
     SelectBlockElement(SelectBlockElement),
     #[serde(rename = "timepicker")]
     TimePickerBlockElement(TimePickerBlockElement),
+    #[serde(rename = "rich_text_section")]
+    RichTextSectionBlockElement(RichTextSectionBlockElement),
     #[serde(skip)]
     None,
 }
@@ -62,6 +64,9 @@ impl BlockElement {
             }
             BlockElement::TimePickerBlockElement(TimePickerBlockElement { .. }) => {
                 BlockElementType::Timepicker
+            }
+            BlockElement::RichTextSectionBlockElement(RichTextSectionBlockElement { .. }) => {
+                BlockElementType::RichTextSection
             }
             BlockElement::None => BlockElementType::None,
         }
@@ -135,6 +140,7 @@ pub enum BlockElementType {
     RadioButtons,
     StaticSelect,
     Timepicker,
+    RichTextSection,
     #[serde(skip)]
     None,
 }
@@ -850,4 +856,14 @@ impl TimePickerBlockElementBuilder {
             confirm: self.confirm,
         }
     }
+}
+
+/// An element which holds rich text
+/// See: https://api.slack.com/changelog/2019-09-what-they-see-is-what-you-get-and-more-and-less
+/// Note that undocumented elements exist - we can't decode them, so we just ignore them and hope.
+/// There is no builder, because you can't build them yourself.
+#[skip_serializing_none]
+#[derive(Deserialize, Serialize, Debug, Default, PartialEq)]
+pub struct RichTextSectionBlockElement {
+    elements: Vec<serde_json::Value>,
 }
