@@ -9,5 +9,6 @@ pub mod block_header;
 pub mod block_image;
 pub mod block_input;
 pub mod block_object;
+pub mod block_richtext;
 pub mod block_section;
 pub mod blocks;

@@ -60,6 +60,7 @@ impl TextBlockObjectBuilder {
 pub enum TextBlockType {
     PlainText,
     Mrkdwn,
+    RichText,
     #[serde(skip)]
     None,
 }
