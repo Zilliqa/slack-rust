@@ -32,6 +32,8 @@ pub enum BlockElement {
     TimePickerBlockElement(TimePickerBlockElement),
     #[serde(rename = "rich_text_section")]
     RichTextSectionBlockElement(RichTextSectionBlockElement),
+    #[serde(rename = "rich_text_preformatted")]
+    RichTextPreformattedBlockElement(RichTextPreformattedBlockElement),
     #[serde(skip)]
     None,
 }
@@ -68,6 +70,9 @@ impl BlockElement {
             BlockElement::RichTextSectionBlockElement(RichTextSectionBlockElement { .. }) => {
                 BlockElementType::RichTextSection
             }
+            BlockElement::RichTextPreformattedBlockElement(RichTextPreformattedBlockElement {
+                ..
+            }) => BlockElementType::RichTextPreformatted,
             BlockElement::None => BlockElementType::None,
         }
     }
@@ -141,6 +146,7 @@ pub enum BlockElementType {
     StaticSelect,
     Timepicker,
     RichTextSection,
+    RichTextPreformatted,
     #[serde(skip)]
     None,
 }
@@ -865,5 +871,12 @@ impl TimePickerBlockElementBuilder {
 #[skip_serializing_none]
 #[derive(Deserialize, Serialize, Debug, Default, PartialEq)]
 pub struct RichTextSectionBlockElement {
+    elements: Vec<serde_json::Value>,
+}
+
+/// An element which holds preformatted rich text
+#[skip_serializing_none]
+#[derive(Deserialize, Serialize, Debug, Default, PartialEq)]
+pub struct RichTextPreformattedBlockElement {
     elements: Vec<serde_json::Value>,
 }
