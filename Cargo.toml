@@ -1,6 +1,6 @@
 [package]
 name = "slack-rust"
-version = "0.0.3-alpha"
+version = "0.0.4-alpha"
 authors = ["Richard Watts <richard@zilliqa.com>", "Gompei <shoueigonpei6028@gmail.com>"]
 edition = "2021"
 description = "Slack API Client"

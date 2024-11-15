@@ -150,7 +150,7 @@ where
                         }
                     }
                 }
-                Message::Ping(p) => log::info!("ping: {:?}", p),
+                Message::Ping(p) => log::debug!("ping: {:?}", p),
                 Message::Close(_) => {
                     handler.on_close(&self).await;
                     break;
